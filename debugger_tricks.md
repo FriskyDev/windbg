@@ -155,3 +155,62 @@ Output:
 ```
    Got it! 233 Håmpton St. in object 34f5328
 ```
+
+## StackFrames - calling conventions
+
+### x64 calling convention
+
+```
+      highest memory address
+   |     16-byte aligned     |
+   +-------------------------+
+   |                         |
+   |                         |
+   +-------------------------+
+   |                         |
+   +-------------------------+
+   |                         |
+   |                         |
+   |                         |
+   |                         |
+   +-------------------------+
+   |                         |
+   +-------------------------+
+   | R9 home                 |
+   +-------------------------+
+   | R8 home                 |
+   +-------------------------+
+   | RDX home                |
+   +-------------------------+
+   | RCX home                |
+   +-------------------------+
+   |                         |
+   | Caller return address   |
+---+-------------------------+--- Function call
+   | Local variables         |
+   | and                     |
+   | nonvolatile registers   |
+   |                         |
+   +-------------------------+    ^^^ positive offset of locals
+   | Frame pointer (if used) |   <== RBP (aka frame/base pointer)
+   +-------------------------+  ]+vvv negative offset for params
+   | alloca space            |   |
+   | (if used)               |   +-- Function stack storage
+   |                         |   |
+   +-------------------------+  ]+
+   |                         |   |
+   |                         |   |
+   | Function param stack    |   +-- Stack parameters (> 4 params RTL)
+   |                         |   |
+   |                         |   |
+   +-------------------------+  ]+
+   | R9 home                 |   |
+   +-------------------------+   |
+   | R8 home                 |   |
+   +-------------------------+   +-- Register params (<=4 LTR)
+   | RDX home                |   |
+   +-------------------------+   |
+   | RCX home                |   |
+   +-------------------------+  ]+
+   |                         |
+      lowest memory address
