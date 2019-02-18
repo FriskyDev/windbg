@@ -10,6 +10,41 @@ These are simple scripts and commands for use in `windbg`, `cdb`, `kd`.
 .cmdtree cmdtree.txt
 ```
 
+## extensions
+
+CMKD
+
+```
+.load cmkd_x64.dll
+!stack -p -t
+```
+
+Output:
+```
+## Stack-Pointer     Return-Address   Call-Site
+   ...
+01 0000002a38ffeab0  00007ffcc212c1ce KERNELBASE!WaitForMultipleObjectsEx+ef
+        Parameter[0] = 0000000000000001 : rcx saved in current frame into NvReg rbx
+                                          which is saved by child frames
+        Parameter[1] = 000001da01404418 : rdx saved in current frame into NvReg r13
+                                          which is saved by child frames
+        Parameter[2] = aca30f2100000001 : r8 saved in current frame into stack
+        Parameter[3] = 00000000ffffffff : r9 saved in current frame into NvReg r12
+   ...
+```
+
+```
+!handle poi(000001da01404418) 8
+```
+
+Output:
+```
+   Handle 248
+     Object Sepecific Information
+       Event Type Manual Reset
+       Event is Waiting
+```
+
 ## breakpoint scripts
 
 ### see files when they are created
