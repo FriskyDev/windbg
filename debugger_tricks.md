@@ -2,6 +2,14 @@
 
 These are simple scripts and commands for use in `windbg`, `cdb`, `kd`.
 
+## helpful hints
+
+### load helpful commands in Command window
+
+```
+.cmdtree cmdtree.txt
+```
+
 ## breakpoint scripts
 
 ### see files when they are created
