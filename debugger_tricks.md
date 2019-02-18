@@ -234,7 +234,7 @@ Output:
 | r9 | Scratch register. | scratch | r9 | r9d | r9w | r9b |
 | r10 | Scratch register. | scratch | r10 | r10d | r10w | r10b |
 | r11 | Scratch register. | scratch | r11 | r11d | r11w | r11b |
-| r12 | Preserved register. | You can use it, but you need to save and restore it. | preserved | r12 | r12d | r12w | r12b |
+| r12 | Preserved register. (You can use it, but you need to **save and restore it**.) | preserved | r12 | r12d | r12w | r12b |
 | r13 | Preserved register. | preserved | r13 | r13d | r13w | r13b |
 | r14 | Preserved register. | preserved | r14 | r14d | r14w | r14b |
 | r15 | Preserved register. | preserved | r15 | r15d | r15w | r15b |
