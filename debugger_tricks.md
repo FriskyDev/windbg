@@ -46,6 +46,43 @@ bp kernelbase!VirtualAlloc ".printf \"allocating %d bytes of virtual memory\", d
    .echo; k 5; !clrstack"
 ```
 
+### list all the functions called by another function
+
+First, set a breakpoint on the function. In this case, what are the functions
+that the garbage collector calls in `mark_phase`.
+
+```
+bp clr!WKS::gc_heap::mark_phase
+g
+```
+
+When the breakpoint fires, now run the following to get a list of the functions
+it calls.
+
+> Note that the `1` below, means a depth of 1.
+
+```
+wt -1 1
+```
+
+Output:
+```
+Tracing clr!WKS::gc_heap::mark_phase to return address 7371359f
+   43     0 [  0] clr!WKS::gc_heap::mark_phase
+    8     0 [  1]   clr!WKS::gc_heap::generation_size
+   76     8 [  0] clr!WKS::gc_heap::mark_phase
+   18     0 [  1]   clr!WKS::gc_heap::generation_size
+  113    26 [  0] clr!WKS::gc_heap::mark_phase
+   33     0 [  1]   clr!SystemDomain::GetTotalNumSizedRefHandles
+  133    59 [  0] clr!WKS::gc_heap::mark_phase
+  558     0 [  1]   clr!GCToEEInterface::GcScanRoots
+  138   617 [  0] clr!WKS::gc_heap::mark_phase
+    8     0 [  1]   clr!WKS::fire_mark_event
+  145   625 [  0] clr!WKS::gc_heap::mark_phase
+ 1417     0 [  1]   clr!WKS::gc_heap::scan_background_roots
+  ...
+```
+
 ### find a specific object (example containing 'å')
 
 Command:
@@ -83,6 +120,3 @@ Output:
 ```
    Got it! 233 Håmpton St. in object 34f5328
 ```
-
-
-
