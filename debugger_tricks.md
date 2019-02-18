@@ -216,3 +216,25 @@ Output:
       lowest memory address
 ```
 
+## registers
+
+### x64
+
+| Name | Notes | Type | 64-bit long | 32-bit int | 16-bit short | 8-bit char |
+| ---- | ----- | ---- | ----------- | ---------- | ------------ | ---------- |
+| rax | Values are returned from functions in this register. | scratch | rax | eax | ax | ah and al |
+| rcx | Typical scratch register.  Some instructions also use it as a counter. |scratch | rcx | ecx | cx | ch and cl |
+| rdx | Scratch register. | scratch | rdx | edx | dx | dh and dl |
+| rbx | Preserved register: **don't use it without saving it!** | preserved | rbx | ebx | bx | bh and bl |
+| rsp | The stack pointer.  Points to the top of the stack (details coming soon!) | preserved | rsp | esp | sp | spl |
+| rbp | Preserved register.  Sometimes used to store the old value of the stack pointer, or the "base". | preserved | rbp | ebp | bp | bpl |
+| rsi | Scratch register used to pass function argument #2 in 64-bit Linux. In 64-bit Windows, a preserved register. | scratch | rsi | esi | si | sil |
+| rdi | Scratch register and function argument #1 in 64-bit Linux. In 64-bit Windows, a preserved register. | scratch | rdi | edi | di | dil |
+| r8 | Scratch register. These were added in 64-bit mode, so they have numbers, not names. | scratch | r8 | r8d | r8w | r8b |
+| r9 | Scratch register. | scratch | r9 | r9d | r9w | r9b |
+| r10 | Scratch register. | scratch | r10 | r10d | r10w | r10b |
+| r11 | Scratch register. | scratch | r11 | r11d | r11w | r11b |
+| r12 | Preserved register. | You can use it, but you need to save and restore it. | preserved | r12 | r12d | r12w | r12b |
+| r13 | Preserved register. | preserved | r13 | r13d | r13w | r13b |
+| r14 | Preserved register. | preserved | r14 | r14d | r14w | r14b |
+| r15 | Preserved register. | preserved | r15 | r15d | r15w | r15b |
