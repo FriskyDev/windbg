@@ -45,3 +45,44 @@ g
 bp kernelbase!VirtualAlloc ".printf \"allocating %d bytes of virtual memory\", dwo(@rsp+16);
    .echo; k 5; !clrstack"
 ```
+
+### find a specific object (example containing 'å')
+
+Command:
+```
+!name2ee OrderService!OrderService.Order
+```
+
+Output:
+```
+  EEClass: 01591830
+  Name:    OrderService.Order
+```
+
+Command:
+```
+!dumpclass 01591830
+```
+
+Output:
+```
+  MT       Offset    Type           VT  Attr
+  727f1638 c         System.Int32   1   instance <Id>k__BackingField
+  727ef7a4 4         System.String  0   instance <Address>k__BackingField
+  727ee3ac 8  ...Int32, mscorlib]]  0   instance <ItemIds>k__BackingField
+```
+
+Command:
+```
+.foreach (obj {!dumpheap -mt 01594ddc -short}) { as /my ${/v:address}
+   dwo(${obj}+4)+8; .block { .if ($spat("${address}", "*å*")) { .printf "Got it! ${address} in object %x",
+   ${obj}; .echo }; ad /q * } }
+```
+
+Output:
+```
+   Got it! 233 Håmpton St. in object 34f5328
+```
+
+
+
