@@ -220,7 +220,7 @@ Output:
 
 ```
       highest memory address
-   |     16-byte aligned     |
+   |     8-byte aligned      |
    +-------------------------+
    |                         |
    |                         |
