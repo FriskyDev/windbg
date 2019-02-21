@@ -2,6 +2,17 @@
 
 These are simple scripts and commands for use in `windbg`, `cdb`, `kd`.
 
+## symbols
+
+Use cached symbols via symbol server and store them in `c:\symbols`. You can
+use `.sympath+` to append additional symbols paths.
+
+```
+.symfix C:\symbols
+.sympath cache*c:\symbols;srv*https://msdl.microsoft.com/download/symbols
+.reload
+```
+
 ## helpful hints
 
 ### load helpful commands in Command window
