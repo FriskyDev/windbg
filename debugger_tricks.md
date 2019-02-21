@@ -165,6 +165,27 @@ Output:
    Got it! 233 Håmpton St. in object 34f5328
 ```
 
+## other windbg scripts
+
+### Complete Stack Traces from x64 System:
+
+```text
+!for_each_thread "!thread @#Thread 16;.thread /w @#Thread; .reload; kv 256; .effmach AMD64"
+```
+
+### x86 Stack Traces from WOW64 Process:
+
+```text
+!for_each_thread ".thread @#Thread; r $t0 = @#Thread; .if (@@c++(((nt!_KTHREAD *)@$t0)->Process) == ProcessAddress) {.thread /w @#Thread; .reload; kv 256; .effmach AMD64 }"
+```
+
+### Top CPU Consuming Threads:
+
+```text
+!for_each_thread "r $t1 = dwo( @#Thread + @@c++(#FIELD_OFFSET(nt!_KTHREAD, KernelTime)) ); r $t0 = Ticks; .if (@$t1 > @$t0) {!thread @#Thread 3f}"
+!for_each_thread "r $t1 = dwo( @#Thread + @@c++(#FIELD_OFFSET(nt!_KTHREAD, UserTime)) ); r $t0 = Ticks; .if (@$t1 > @$t0) {!thread @#Thread 3f}"
+```
+
 ## StackFrames - calling conventions
 
 ### x64 calling convention
